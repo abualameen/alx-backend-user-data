@@ -87,3 +87,31 @@ def get_db():
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL database: {err}")
         return None
+
+
+def main():
+    """Retrieve and display all rows in the users table."""
+    # Get database connection
+    db = get_db()
+    if db:
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users;")
+        for row in cursor:
+            filtered_row = {key: '***'
+                            if key in PII_FIELDS
+                            else value for key, value
+                            in row.items()}
+            ormatted_row = "; ".join(
+                                        f"{key}={value}"for key,
+                                        value in filtered_row.items())
+            log_level = logging.getLogger().getEffectiveLevel()
+            print(f"[HOLBERTON] user_data INFO {log_level} {formatted_row}")
+        cursor.close()
+        db.close()
+
+
+# Define the PII_FIELDS constant
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+if __name__ == "__main__":
+    main()
