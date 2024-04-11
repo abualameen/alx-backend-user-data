@@ -82,5 +82,4 @@ def get_db():
         host=db_host,
         database=db_name
     )
-    
     return db
