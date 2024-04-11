@@ -4,6 +4,8 @@ Filtered Logger Module
 """
 
 
+import os
+import mysql.connector
 import logging
 import re
 from typing import List
@@ -64,9 +66,6 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
     return logger
 
-
-import os
-import mysql.connector
 
 def get_db():
     """Connect to the database and return the connector"""
