@@ -12,6 +12,9 @@ from typing import List
 from logging import StreamHandler
 
 
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str
                  ) -> str:
@@ -59,9 +62,9 @@ def get_logger() -> logging.Logger:
     # Prevent messages from being propagated to other loggers
     logger.propagate = False
     # Create a StreamHandler
-    stream_handler = StreamHandler()
+    stream_handler = loggeing.StreamHandler()
     # Set the formatter for the StreamHandler to RedactingFormatter
-    stream_handler.setFormatter(RedactingFormatter(fields=PII_FIELDS))
+    stream_handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     # Add the StreamHandler to the logger
     logger.addHandler(stream_handler)
     return logger
@@ -109,9 +112,6 @@ def main():
         cursor.close()
         db.close()
 
-
-# Define the PII_FIELDS constant
-PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 if __name__ == "__main__":
     main()
