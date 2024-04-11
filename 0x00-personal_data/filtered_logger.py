@@ -52,10 +52,14 @@ def get_logger() -> logging.Logger:
 
     return logger
 
-def filter_datum(fields, redaction, message, separator):
+
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str
+                 ) -> str:
+    """ Filter the log message obfuscated """
     for field in fields:
-        # Constructing the regular expression pattern to match the field and its value
-        pattern = re.escape(field) + r'=[^' + re.escape(separator) + r']+'
-        # Replacing the matched pattern with the redaction
-        message = re.sub(pattern, field + '=' + redaction, message)
+        pattern = re.escape(field) + r'=[^' + \
+            re.escape(separator) + r']+'
+        message = re.sub(
+            pattern, field + '=' + redaction, message)
     return message
