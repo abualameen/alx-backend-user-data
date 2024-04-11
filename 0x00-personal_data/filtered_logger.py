@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module for handling Personal Data
+This module is a passonal II Logger
 """
 from typing import List
 import re
@@ -14,7 +14,7 @@ PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    """ Returns a log message obfuscated """
+    """ this function filters out based on the args"""
     for f in fields:
         message = re.sub(f'{f}=.*?{separator}',
                          f'{f}={redaction}{separator}', message)
@@ -22,7 +22,7 @@ def filter_datum(fields: List[str], redaction: str,
 
 
 def get_logger() -> logging.Logger:
-    """ Returns a Logger Object """
+    """ this function logees """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -35,7 +35,7 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """ Returns a connector to a MySQL database """
+    """ this fucntion connects a database obj"""
     username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
     password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
     host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
@@ -50,8 +50,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 def main():
     """
-    Obtain a database connection using get_db and retrieves all rows
-    in the users table and display each row under a filtered format
+    this is the entry point, in it objection are created
+    and connection to the database made
     """
     db = get_db()
     cursor = db.cursor()
