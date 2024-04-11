@@ -54,12 +54,13 @@ def get_logger() -> logging.Logger:
 
 
 def filter_datum(fields: List[str], redaction: str,
-                 message: str, separator: str
-                 ) -> str:
-    """ Filter the log message obfuscated """
+                 message: str, separator: str) -> str:
+    """
+    This function filters log messages by obfuscating specified fields.
+    """
     for field in fields:
-        pattern = re.escape(field) + r'=[^' + \
-            re.escape(separator) + r']+'
-        message = re.sub(
-            pattern, field + '=' + redaction, message)
+        # Constructing the regular expression pattern to match the field and its value
+        pattern = re.escape(field) + r'=[^' + re.escape(separator) + r']+'
+        # Replacing the matched pattern with the redaction
+        message = re.sub(pattern, field + '=' + redaction, message)
     return message
