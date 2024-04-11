@@ -40,3 +40,24 @@ class RedactingFormatter(logging.Formatter):
                                     self.SEPARATOR
                                     )
         return super().format(record)
+
+
+# Define the PII_FIELDS constant
+PII_FIELDS = ("field1", "field2", "field3", "field4", "field5")
+
+
+def get_logger() -> logging.Logger:
+    """Create and configure a logger named 'user_data'."""
+    # Create a new logger named 'user_data'
+    logger = logging.getLogger("user_data")
+    # Set the logging level to INFO
+    logger.setLevel(logging.INFO)
+    # Prevent messages from being propagated to other loggers
+    logger.propagate = False
+    # Create a StreamHandler
+    stream_handler = StreamHandler()
+    # Set the formatter for the StreamHandler to RedactingFormatter
+    stream_handler.setFormatter(RedactingFormatter(fields=PII_FIELDS))
+    # Add the StreamHandler to the logger
+    logger.addHandler(stream_handler)
+    return logger
