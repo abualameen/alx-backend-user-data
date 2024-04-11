@@ -63,3 +63,25 @@ def get_logger() -> logging.Logger:
     # Add the StreamHandler to the logger
     logger.addHandler(stream_handler)
     return logger
+
+
+import os
+import mysql.connector
+
+def get_db():
+    """Connect to the database and return the connector"""
+    # Retrieve database credentials from environment variables
+    db_username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    db_password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    db_host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.getenv('PERSONAL_DATA_DB_NAME', '')
+
+    # Establish a connection to the MySQL database
+    db = mysql.connector.connect(
+        user=db_username,
+        password=db_password,
+        host=db_host,
+        database=db_name
+    )
+    
+    return db
