@@ -8,7 +8,6 @@ import logging
 import re
 from typing import List
 from logging import StreamHandler
-from .filtered_logger import RedactingFormatter
 
 
 def filter_datum(fields: List[str], redaction: str,
