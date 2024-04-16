@@ -28,7 +28,9 @@ def before_request():
     """ Handler for before_request"""
     if auth is None:
         return
-    excluded_paths = ['/api/v1/status/', '/api/v1/status', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    excluded_paths = [
+                        '/api/v1/status/', '/api/v1/status',
+                        '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if request.path in excluded_paths:
         return
     if auth.authorization_header(request) is None:
@@ -54,7 +56,6 @@ def unauthorized(error) -> str:
 def forbidden(error) -> str:
     """ forbidden handler"""
     return jsonify({"error": "Forbidden"}), 403
-
 
 
 if __name__ == "__main__":
