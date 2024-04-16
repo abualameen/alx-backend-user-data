@@ -18,13 +18,12 @@ class Auth:
         # making sure that paths are slash tolerant
         path = path.rstrip("/") + "/"
         return path not in excluded_paths
-        
 
     def authorization_header(self, request=None) -> str:
         """ Gets the Authorization header from the request """
         if request is None:
             return None
-        if request.headers.get('Authorization') == None:
+        if request.headers.get('Authorization') is None:
             return None
         else:
             return request.headers.get('Authorization')
