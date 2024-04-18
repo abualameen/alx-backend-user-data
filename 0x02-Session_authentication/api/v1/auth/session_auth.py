@@ -15,6 +15,7 @@ T = TypeVar('T')
 class SessionAuth(Auth):
     """ this is the session auth class """
     user_id_by_session_id = {}
+    SESSION_NAME = '_my_session_id'
 
     def create_session(self, user_id: str = None) -> str:
         """ this method creats a session"""
