@@ -24,7 +24,7 @@ elif getenv("AUTH_TYPE") == "session_auth":
 elif getenv("AUTH_TYPE") == "session_exp_auth":
     from api.v1.auth.session_exp_auth import SessionExpAuth as AUTH_TYPE3
     auth = AUTH_TYPE3()
-elif getenv("AUTH_TYPE") == "session_db_auth"
+elif getenv("AUTH_TYPE") == "session_db_auth":
     from api.v1.auth.session_db_auth import SessionDBAuth as AUTH_TYPE4
     auth = AUTH_TYPE4()
 else:
