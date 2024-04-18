@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 
 
 class SessionDBAuth(SessionExpAuth):
-    """ This is the session auth class with expiration stored in the database """
+    """ This is the session auth class with
+        expiration stored in the database """
     def create_session(self, user_id=None):
         """ Creates a session stored in the database """
         session_id = super().create_session(user_id)
@@ -33,7 +34,8 @@ class SessionDBAuth(SessionExpAuth):
         return user_id
 
     def destroy_session(self, request=None):
-        """ Destroys a session stored in the database based on the Session ID from the request cookie """
+        """ Destroys a session stored in the database based
+            on the Session ID from the request cookie """
         if not request:
             return False
         session_id = self.session_cookie(request)
