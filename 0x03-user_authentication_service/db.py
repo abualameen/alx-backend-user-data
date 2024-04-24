@@ -1,5 +1,7 @@
 #!/user/bin/env python3
-
+"""
+the is the DB model
+"""
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
