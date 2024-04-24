@@ -45,29 +45,3 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
-
-    def find_user_by(self, **kwargs) -> User:
-        """
-        Find a user in the database based on the provided filter arguments.
-
-        Args:
-            **kwargs: Arbitrary keyword arguments to filter the user.
-
-        Returns:
-            User: The found User object.
-
-        Raises:
-            NoResultFound: If no results are found.
-            InvalidRequestError: If wrong query arguments are passed.
-        """
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except NoResultFound:
-            raise
-        except MultipleResultsFound:
-            # In case multiple results are found, we only want the first one.
-            user = self._session.query(User).filter_by(**kwargs).first()
-            return user
-        except InvalidRequestError:
-            raise
