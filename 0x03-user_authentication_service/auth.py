@@ -3,6 +3,7 @@
 Auth module
 """
 
+import bcrypt
 from db import DB, User
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -38,7 +39,7 @@ class Auth:
             user = self._db.add_user(email, hashed_password)
             return user
 
-    def _hash_password(password: str) -> bytes:
+    def _hash_password(self, password: str) -> bytes:
         """
         Hash a password using bcrypt.
 
