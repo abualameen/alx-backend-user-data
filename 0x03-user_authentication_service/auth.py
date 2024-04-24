@@ -16,7 +16,7 @@ from user import User
 
 def _hash_password(password: str) -> bytes:
     """
-      this is the hashing func 
+      this is the hashing func
     """
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
