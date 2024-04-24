@@ -1,17 +1,9 @@
-#!/usr/bin/env python3
-"""
-DB module
-"""
-import logging
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
-
-# Disable SQLAlchemy's logging entirely
-# logging.getLogger('sqlalchemy').setLevel(logging.CRITICAL)
-
 
 class DB:
     """DB class
@@ -20,13 +12,12 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=False)
-        Base.metadata.drop_all(self._engine)
+        self._engine = create_engine("sqlite:///a.db", echo=False)  # Change echo to False
         Base.metadata.create_all(self._engine)
         self.__session = None
 
     @property
-    def _session(self) -> Session:
+    def _session(self):
         """Memoized session object
         """
         if self.__session is None:
@@ -49,3 +40,29 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        Find a user in the database based on the provided filter arguments.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments to filter the user.
+
+        Returns:
+            User: The found User object.
+
+        Raises:
+            NoResultFound: If no results are found.
+            InvalidRequestError: If wrong query arguments are passed.
+        """
+        try:
+            user = self._session.query(User).filter_by(**kwargs).one()
+            return user
+        except NoResultFound:
+            raise
+        except MultipleResultsFound:
+            # In case multiple results are found, we only want the first one.
+            user = self._session.query(User).filter_by(**kwargs).first()
+            return user
+        except InvalidRequestError:
+            raise
