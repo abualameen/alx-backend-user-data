@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""
+thi is the db module
+
+"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
