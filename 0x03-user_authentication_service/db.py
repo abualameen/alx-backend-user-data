@@ -1,9 +1,12 @@
+#!/user/bin/env python3
+
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
+
 
 class DB:
     """DB class
@@ -12,7 +15,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=False)  # Change echo to False
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.create_all(self._engine)
         self.__session = None
 
